@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+
+<div id="APP_NAME"></div>
+
+</body>
+<script>
+
+    var appInfo = null;
+
+    // GET APPID
+    var matches = location.href.match( /\?(.+)$/ );
+    if ( matches ) {
+        var appId = matches[ 1 ];
+        LoadAppInfoJs( appId );
+    }
+
+    // LOAD APPINFO.JS
+    function LoadAppInfoJs( aAppId ) {
+        // CREATE APP_INFO_JS ELEMENT AND LOAD
+        var jsElm = document.createElement( 'script' );
+        jsElm.id  = 'APP_INFO_JS';
+        jsElm.src = appId + '.js';
+        document.body.appendChild( jsElm );
+    }
+
+    // SET APPINFO FROM APPINFO.JS
+    function SetAppInfo( aInfo ) {
+        // REMOVE APP_INFO_JS ELEMENT
+        var jsElm = document.getElementById( 'APP_INFO_JS' );
+        document.body.removeChild( jsElm );
+        // SHOW APP INFO
+        appInfo = aInfo;
+        ShowAppInfo();
+    }
+
+    function ShowAppInfo() {
+        var elm;
+        elm = document.getElementById( 'APP_NAME' );
+        elm.innerHTML = appInfo.name;
+    }
+
+</script>
+</html>
